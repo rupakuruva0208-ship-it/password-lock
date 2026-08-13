@@ -1,0 +1,77 @@
+`timescale 1ns/1ps
+
+module password_lock_tb;
+
+    reg clk;
+    reg reset;
+    reg [3:0] digit;
+    reg enter;
+
+    wire unlocked;
+    wire locked;
+
+    password_lock uut (
+        .clk(clk),
+        .reset(reset),
+        .digit(digit),
+        .enter(enter),
+        .unlocked(unlocked),
+        .locked(locked)
+    );
+
+    // Clock generation
+    always #5 clk = ~clk;
+
+    initial begin
+
+        $dumpfile("password_lock.vcd");
+        $dumpvars(0, password_lock_tb);
+
+        clk   = 0;
+        reset = 1;
+        digit = 4'b0000;
+        enter = 0;
+
+        // Reset
+        #10;
+        reset = 0;
+
+        // Test 1: Wrong password
+        #10;
+        digit = 4'b1100;
+        enter = 1;
+
+        #10;
+        enter = 0;
+
+        $display("Wrong Password -> Locked = %b, Unlocked = %b",
+                  locked, unlocked);
+
+        // Test 2: Correct password
+        #10;
+        digit = 4'b1010;
+        enter = 1;
+
+        #10;
+        enter = 0;
+
+        $display("Correct Password -> Locked = %b, Unlocked = %b",
+                  locked, unlocked);
+
+        // Test 3: Another wrong password
+        #10;
+        digit = 4'b0110;
+        enter = 1;
+
+        #10;
+        enter = 0;
+
+        $display("Wrong Password -> Locked = %b, Unlocked = %b",
+                  locked, unlocked);
+
+        #10;
+
+        $finish;
+    end
+
+endmodule

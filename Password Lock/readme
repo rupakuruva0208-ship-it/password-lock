@@ -1,0 +1,132 @@
+# 🔐 Password Lock Using Verilog
+
+## 📌 Project Overview
+
+This project implements a simple **digital Password Lock system using Verilog HDL**.
+
+The system compares an entered 4-bit password with a predefined password. If the entered password is correct, the system unlocks. If the password is incorrect, the system remains locked.
+
+**Predefined Password:** `1010`
+
+## 🎯 Objectives
+
+* Design a digital password security system.
+* Compare an input password with a stored password.
+* Generate `Unlocked` and `Locked` status signals.
+* Understand combinational comparison with sequential control.
+* Verify the design using a Verilog testbench.
+
+## 🛠️ Technologies Used
+
+* Verilog HDL
+* Digital Logic Design
+* Icarus Verilog / ModelSim / Vivado
+* GTKWave for waveform visualization
+
+## 🔌 Inputs
+
+| Input   |  Width | Description                |
+| ------- | -----: | -------------------------- |
+| `clk`   |  1 bit | System clock               |
+| `reset` |  1 bit | Resets the password lock   |
+| `digit` | 4 bits | Entered password           |
+| `enter` |  1 bit | Password submission signal |
+
+## 📤 Outputs
+
+| Output     | Width | Description                            |
+| ---------- | ----: | -------------------------------------- |
+| `unlocked` | 1 bit | Becomes `1` when password is correct   |
+| `locked`   | 1 bit | Becomes `1` when password is incorrect |
+
+## 🔑 Password
+
+The predefined password is:
+
+```text
+1010
+```
+
+### Working
+
+1. The system starts in the locked state.
+2. A 4-bit password is entered through `digit`.
+3. `enter` is activated to submit the password.
+4. The entered password is compared with `1010`.
+5. If the password matches:
+
+   * `unlocked = 1`
+   * `locked = 0`
+6. If the password does not match:
+
+   * `unlocked = 0`
+   * `locked = 1`
+
+## 📊 Example
+
+| Entered Password | Result  | Locked | Unlocked |
+| ---------------- | ------- | -----: | -------: |
+| `1100`           | Wrong   |      1 |        0 |
+| `1010`           | Correct |      0 |        1 |
+| `0110`           | Wrong   |      1 |        0 |
+
+## 🧪 Simulation Output
+
+```text
+Wrong Password -> Locked = 1, Unlocked = 0
+Correct Password -> Locked = 0, Unlocked = 1
+Wrong Password -> Locked = 1, Unlocked = 0
+```
+
+## ▶️ How to Run
+
+### Using Icarus Verilog
+
+Compile:
+
+```bash
+iverilog -o password_lock_sim password_lock.v password_lock_tb.v
+```
+
+Run:
+
+```bash
+vvp password_lock_sim
+```
+
+For waveform generation:
+
+```bash
+gtkwave password_lock.vcd
+```
+
+## 📈 Waveform
+
+The waveform can be used to observe:
+
+* Clock
+* Reset
+* Entered password
+* Enter signal
+* Locked status
+* Unlocked status
+
+When `digit = 1010` and `enter = 1`, the `unlocked` signal becomes `1`.
+
+## 🚀 Future Improvements
+
+* Add multiple password attempts.
+* Add a 3-attempt limit.
+* Add an alarm after repeated incorrect passwords.
+* Use a keypad interface.
+* Add password change functionality.
+* Add an LCD/display interface.
+* Implement the design on an FPGA board.
+
+## 👨‍💻 Author
+
+**Verilog HDL Digital Design Project**
+
+## 📄 License
+
+This project is created for educational and academic purposes.

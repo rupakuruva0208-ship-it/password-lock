@@ -1,0 +1,3 @@
+Wrong Password -> Locked = 1, Unlocked = 0
+Correct Password -> Locked = 0, Unlocked = 1
+Wrong Password -> Locked = 1, Unlocked = 0

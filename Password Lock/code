@@ -1,0 +1,30 @@
+module password_lock (
+    input  wire       clk,
+    input  wire       reset,
+    input  wire [3:0] digit,
+    input  wire       enter,
+    output reg        unlocked,
+    output reg        locked
+);
+
+    // Password = 4'b1010
+    parameter [3:0] PASSWORD = 4'b1010;
+
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            unlocked <= 1'b0;
+            locked   <= 1'b1;
+        end
+        else if (enter) begin
+            if (digit == PASSWORD) begin
+                unlocked <= 1'b1;
+                locked   <= 1'b0;
+            end
+            else begin
+                unlocked <= 1'b0;
+                locked   <= 1'b1;
+            end
+        end
+    end
+
+endmodule
